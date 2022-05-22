@@ -2,11 +2,12 @@ package com.program.fazoteuBackend.models;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "clientes")
-public class ClientesModel {
+public class ClientesModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +23,14 @@ public class ClientesModel {
    private String telefone;
 
     public ClientesModel() {
+    }
+
+    public ClientesModel(String nome, String endereco, String telefone) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
     }
+
 
     public Long getIdCliente() {
         return idCliente;

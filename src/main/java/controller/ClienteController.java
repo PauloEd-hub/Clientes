@@ -3,36 +3,27 @@ package controller;
 
 import com.program.fazoteuBackend.models.ClientesModel;
 import com.program.fazoteuBackend.service.ClientesService;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
+
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 
-    final ClientesService clientesService;
+    @Autowired
+    private ClientesService clientesService;
 
-    public ClienteController(ClientesService clientesService) {
-        this.clientesService = clientesService;
+
+    @GetMapping(value = "teste")
+    public ResponseEntity<List<ClientesModel>> findAll() {
+        List<ClientesModel> list = clientesService.findAll();
+
+        return ResponseEntity.ok().body(list);
     }
 
-    @PostMapping
-    ResponseEntity<ClientesModel> saveClientes(@PathVariable UUID idClientes) {
-        var clientesModel = new ClientesModel();
-        return  ResponseEntity.status(HttpStatus.CREATED).body(clientesService.save(clientesModel));
-
-    }
-//
-//    @DeleteMapping("/{idCliente}")
-//    ResponseEntity<ClientesService> deleteCliente(UUID idCliente) {
-//        return clientesService.deleteCliente(idCliente);
-//    }
-
-
-//    @GetMapping
-//    ResponseEntity<ClientesService> getAllClientes() {
-//        return ResponseEntity.ok(clientesService);    }
 }
